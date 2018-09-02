@@ -5,7 +5,7 @@
   "author": "xuejian.xu",
   "license": "MIT",
   "scripts": {
-    "dev": "NODE_ENV=dev nodemon bin/www"
+    "start": "NODE_ENV=dev nodemon bin/www"
   },
   "dependencies": {
     "debug": "^3.1.0",
