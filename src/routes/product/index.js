@@ -2,17 +2,13 @@ const Router = require('koa-router')
 const router = new Router()
 const AV = require('../../service/StorageService')
 
-router.post('/save', async (ctx) => {
-    const { name, profile, applyForCount, limit, type, url } = ctx.request.body
+router.post('/save', async ctx => {
     const ProductsModel = AV.Object.extend('ProductsModel')
     const item = new ProductsModel()
 
-    item.set('name', name)
-    item.set('profile', profile)
-    item.set('applyForCount', applyForCount)
-    item.set('limit', limit)
-    item.set('type', type)
-    item.set('url', url)
+    Object.keys(ctx.request.body).forEach(key => {
+        item.set(key, ctx.request.body[key])
+    })
 
     try {
         const res = await item.save()

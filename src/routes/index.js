@@ -12,7 +12,7 @@ router.all('*', async (ctx, next) => {
     await next()
 })
 
-router.use('/api/files', productRouter.routes())
+router.use('/api/product', productRouter.routes())
 router.use('/api/user', userRouter.routes())
 
 module.exports = router
