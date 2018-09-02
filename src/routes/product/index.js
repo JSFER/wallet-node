@@ -19,4 +19,27 @@ router.post('/save', async ctx => {
     }
 })
 
+router.get('/query', async ctx => {
+    const current = parseInt(ctx.request.query.current)
+    const size = parseInt(ctx.request.query.size)
+    const query = new AV.Query('ProductsModel')
+
+    try {
+        const total = await query.count()
+
+        if (current > 1) {
+            query.skip(size * (current - 1))
+        }
+
+        const results = await query.limit(size).find()
+        const products = results.map(item => {
+            return { ...item.attributes }
+        })
+
+        ctx.body = { code: 0, message: 'success', data: { products, total, current } }
+    } catch (error) {
+        ctx.body = { code: -1, message: error.rawMessage, error }
+    }
+})
+
 module.exports = router
