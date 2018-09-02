@@ -1,0 +1,19 @@
+{
+  "name": "xmock-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "xuejian.xu",
+  "license": "MIT",
+  "scripts": {
+    "dev": "NODE_ENV=dev nodemon bin/www"
+  },
+  "dependencies": {
+    "debug": "^3.1.0",
+    "koa": "^2.5.1",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.4.0",
+    "leancloud-storage": "^3.10.0",
+    "lodash": "^4.17.10",
+    "lowdb": "^1.0.0"
+  }
+}
