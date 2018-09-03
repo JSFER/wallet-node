@@ -2,6 +2,7 @@ const Koa = require('koa')
 const app = new Koa()
 const rootRouter = require('./routes')
 const bodyParser = require('koa-bodyparser')
+const port = process.env.PORT || 4000
 
 app.use(bodyParser())
 
@@ -24,4 +25,6 @@ app.use(async ctx => {
     ctx.body = { code: -1, message: '您所请求的接口不存在' }
 })
 
-module.exports = app
+app.listen(port, '127.0.0.1', null, () => {
+    console.log(`Server is running on ${port}`)
+})
