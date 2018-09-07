@@ -33,13 +33,20 @@ router.get('/query', async ctx => {
 
         const results = await query.limit(size).find()
         const products = results.map(item => {
-            return { ...item.attributes }
+            return {id: item.id, ...item.attributes }
         })
 
         ctx.body = { code: 0, message: 'success', data: { products, total, current } }
     } catch (error) {
         ctx.body = { code: -1, message: error.rawMessage, error }
     }
+})
+
+router.get('/delete/:id', async (ctx, next) => {
+    const {id} = ctx.params
+
+    console.log(id);
+    next()
 })
 
 module.exports = router
