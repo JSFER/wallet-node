@@ -48,12 +48,29 @@ router.get('/query', async ctx => {
     }
 })
 
-router.get('/delete/:id', async (ctx, next) => {
+router.get('/delete/:id', async (ctx) => {
     const { id } = ctx.params
     const item = AV.Object.createWithoutData('ProductsModel', id)
 
     try {
         await item.destroy()
+
+        ctx.body = { code: 0, message: 'success', data: {} }
+    } catch (error) {
+        ctx.body = { code: -1, message: error.rawMessage, error }
+    }
+})
+
+router.post('/update/:id', async (ctx) => {
+    const { id } = ctx.params
+    const item = AV.Object.createWithoutData('ProductsModel', id)
+
+    Object.keys(ctx.request.body).forEach(key => {
+        item.set(key, ctx.request.body[key])
+    })
+
+    try {
+        const res = await item.save()
 
         ctx.body = { code: 0, message: 'success', data: {} }
     } catch (error) {
